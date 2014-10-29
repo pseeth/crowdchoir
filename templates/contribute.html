@@ -1,0 +1,85 @@
+$def with (text, requestid)
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shout!</title>
+
+    <!-- Bootstrap -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/contribute.css" rel="stylesheet">
+    <!-- Libraries --> 
+	<script>
+		var requestid = "$requestid";
+	</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/static/js/bootstrap.min.js"></script>
+	<script src="/static/js/recorder.js"></script>
+	<script src="/static/js/recorderWorker.js"></script>
+	<script src="/static/js/shout.js"></script>
+
+  </head>
+
+  <body>
+	<div class="container">
+		</br>
+ 		
+		<div class="jumbotron">
+
+			<p>
+				When you're ready, begin recording and read this sentence aloud.
+			</p>
+			<h3 id="sentence">
+				$text
+			</h3>
+	 		
+	 		<div class="btn-group btn-group-lg" id="recordBtn">
+	  			<button type="button"
+	  				class="btn btn-danger"
+					id="record"
+					onclick="record();">
+						<span class="glyphicon glyphicon-record"></span> Record
+				</button>
+			</div>
+
+			<p></p>
+
+			<div class="container" id="audioControls">
+				<audio id="audio" controls>
+					<source id="previewsource" type="audio/wav"></source>
+				</audio>
+			</div>
+		
+			<div class="container" id="submitBtn">
+				<button type="button"
+					class="btn btn-default"
+					id="submit"
+					onclick="submit();">
+						<span class="glyphicon glyphicon-ok"></span> Submit
+				</button>
+			</div>
+		</div>
+	</div>
+  </body>
+	
+	<div class="modal fade turk-code" id="info" tabindex="-1" role="dialog" aria-labelledby="modallabel" aria-hidden="true" data-keyboard='false' data-backdrop='static'>
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      	<div class="modal-header">
+			<h4 id="modellabel" class="modal-title">Survey code</h4>
+      	</div>
+		<div class="modal-body">
+		<p>If you're performing through Amazon Mechanical Turk, copy the following code into the input box.</p>
+		<p id="turk">
+
+		</p>
+		</div>
+	</div>
+    </div>
+    </div>
+
+</html>

@@ -1,0 +1,11 @@
+#recordBtn {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#turk {
+	font-size: 2em;
+	text-align: center;
+	padding: 15px;
+	border: 1px dashed lightgray;
+}
