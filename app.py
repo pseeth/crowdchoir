@@ -32,7 +32,7 @@ class contribute:
 		return render.contribute(req[0].text, requestid)
 
 class upload:
-	def POST(self, which):
+	def POST(self):
 		#this gets hit by "contribute.html" in the templates folder. once the user has sung something, it gets put into the folder "contributions" at "contributions/[requestid].wav".
 		x = web.input(myfile={})
 		web.debug(x.keys())
@@ -42,14 +42,25 @@ class upload:
 		fout = open(filedir + '/' + filename, 'w')
 		fout.write(x['audio'])
 		fout.close()
-		db.insert('contributions', contributeid = x['contributeid'], filename = filedir + '/' + filename, text = x['text'], request_id = x['requestid'])
+		db.insert('contributions', contributeid = x['contributeid'], filename = filedir + '/' + filename, requestid = x['requestid'], projectid = x['projectid'])
 
 class createRequest:
 	def POST(self):
 		#here's where a request is actually made to amazon mechanical turk. the user will end up going to '/contribute/[requestid]' to record something. the contribute and upload code is above.
 		x = web.input(myfile={})
 		print x['requestid']
-		q = db.insert('requests', request_id = x['requestid'], text = x['string'])
+		
+		#place file into requests folder. contribute will get at this later for the sing-along step.
+		filedir = 'requests'
+		filepath = x['fname'].replace('\\', '/')
+		filename = filepath.split('/')[-1]
+		fout = open(filedir + '/' + filename, 'w')
+		fout.write(x['audio'])
+		fout.close()
+
+		q = db.insert('requests', requestid = x['requestid'], filename = filedir + '/' + filenameprojectid = x['projectid'])
+
+		#sitename is a dummy thing
 		sitename = "http://54.69.164.187:8080"
 		link = sitename + "/contribute/"
 		link += x['requestid']
