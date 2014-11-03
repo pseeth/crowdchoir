@@ -1,11 +1,11 @@
-$def with (text, requestid)
+$def with (file, requestid)
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shout!</title>
+    <title>CrowdChoir</title>
 
     <!-- Bootstrap -->
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -15,12 +15,14 @@ $def with (text, requestid)
     <!-- Libraries --> 
 	<script>
 		var requestid = "$requestid";
+		var filename = "$file";
 	</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/recorder.js"></script>
 	<script src="/static/js/recorderWorker.js"></script>
-	<script src="/static/js/shout.js"></script>
+	<script src="/static/js/bufferloader.js"></script>
+	<script src="/static/js/contribute.js"></script>
 
   </head>
 
@@ -29,39 +31,76 @@ $def with (text, requestid)
 		</br>
  		
 		<div class="jumbotron">
-
+			
+			<div class="instr">
 			<p>
-				When you're ready, begin recording and read this sentence aloud.
+			0. Get some headphones and find a quiet place in which to do this task.
 			</p>
-			<h3 id="sentence">
-				$text
-			</h3>
-	 		
-	 		<div class="btn-group btn-group-lg" id="recordBtn">
+			</div>
+			
+			<div class="instr">
+			<p>
+			1. Listen to the recording once.
+			</p>
+
+			<div class="btn-group btn-group-lg" id="playbtn">
 	  			<button type="button"
-	  				class="btn btn-danger"
+	  				class="btn btn-success addstyle"
+					id="playstop"
+					onclick="music.toggle(0, false);">
+						<span class="glyphicon glyphicon-play"></span> Listen
+				</button>
+			</div>
+	 		</div>
+
+
+		<div class="instr">
+			<p>
+			2. Now, hit record and sing along to the audio file.
+			</p>
+	 		
+	 		<div class="btn-group btn-group-lg" id="recordbtn">
+	  			<button type="button"
+	  				class="btn btn-danger addstyle"
 					id="record"
-					onclick="record();">
+					onclick="music.record();">
 						<span class="glyphicon glyphicon-record"></span> Record
 				</button>
 			</div>
+		</div>
 
-			<p></p>
+		<div class="instr">
+			<p>
+			3. Listen to your output. If everything seems okay, submit it!
+			</p>
 
-			<div class="container" id="audioControls">
-				<audio id="audio" controls>
-					<source id="previewsource" type="audio/wav"></source>
-				</audio>
+	 		<div class="btn-group btn-group-lg" id="previewbtn">
+	  			<button type="button"
+	  				class="btn btn-info addstyle"
+					id="preview"
+					onclick="music.toggle(1, false);">
+						<span class="glyphicon glyphicon-play"></span> Preview
+				</button>
 			</div>
+
+		</div>
+
+
+		<div class="instr">
+			<p>
+			4. Submit!
+			</p>
 		
-			<div class="container" id="submitBtn">
-				<button type="button"
-					class="btn btn-default"
+	 		<div class="btn-group btn-group-lg" id="submitbtn">
+	  			<button type="button"
+	  				class="btn btn-primary addstyle"
 					id="submit"
 					onclick="submit();">
 						<span class="glyphicon glyphicon-ok"></span> Submit
 				</button>
 			</div>
+		</div>
+
 		</div>
 	</div>
   </body>

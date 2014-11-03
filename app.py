@@ -1,4 +1,5 @@
 import web
+import os
 import mturk
 
 render = web.template.render('templates/')
@@ -9,7 +10,9 @@ urls = (
 	'/request', 'request',
 	'/contribute/(.*)', 'contribute',
 	'/upload', 'upload',
-	'/createRequest', 'createRequest'
+	'/createRequest', 'createRequest',
+	'/requests/(.*)', 'requests',
+	'/contributions/(.*)', 'contributions'
 )
 
 app = web.application(urls, globals())
@@ -28,15 +31,15 @@ class contribute:
 	def GET(self, requestid):
 		#okay here's where someone can actually sing along to something. it renders a page with a record interface, and the loaded audio file will be in the folder requests/[requestid].wav. to sing along to a specific requestid, you'd visit /contribute/[requestid].
 		rid = dict(requestid=requestid)
-		req = db.select('requests', rid, where = "request_id = $requestid")
-		return render.contribute(req[0].text, requestid)
+		req = db.select('requests', rid, where = "requestid = $requestid")
+		return render.contribute(req[0].filename, requestid)
 
 class upload:
 	def POST(self):
 		#this gets hit by "contribute.html" in the templates folder. once the user has sung something, it gets put into the folder "contributions" at "contributions/[requestid].wav".
 		x = web.input(myfile={})
 		web.debug(x.keys())
-		filedir = 'contributions'
+		filedir = '/contributions'
 		filepath = x['fname'].replace('\\', '/')
 		filename = filepath.split('/')[-1]
 		fout = open(filedir + '/' + filename, 'w')
@@ -65,6 +68,34 @@ class createRequest:
 		link = sitename + "/contribute/"
 		link += x['requestid']
 		mturk.postHIT(link)
-		
+
+class requests:
+	def GET(self, name):
+		#bit of code to serve up audio in the requests folder
+		ext = name.split(".")[-1]
+		cType = {
+			"wav": "audio/wav"
+		}
+
+		if name in os.listdir('requests'):
+			web.header("Content-Type", cType[ext])
+			return open('requests/%s' % name, "rb").read()
+		else:
+			raise web.notfound()
+
+class contributions:
+	def GET(self, name):
+		#bit of code to serve up audio in the contributions folder
+		ext = name.split(".")[-1]
+		cType = {
+			"wav": "audio/wav"
+		}
+
+		if name in os.listdir('requests'):
+			web.header("Content-Type", cType[ext])
+			return open('contributions/%s' % name, "rb").read()
+		else:
+			raise web.notfound()
+
 if __name__ == "__main__":
     app.run()
