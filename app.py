@@ -39,7 +39,7 @@ class upload:
 		#this gets hit by "contribute.html" in the templates folder. once the user has sung something, it gets put into the folder "contributions" at "contributions/[requestid].wav".
 		x = web.input(myfile={})
 		web.debug(x.keys())
-		filedir = '/contributions'
+		filedir = 'contributions'
 		filepath = x['fname'].replace('\\', '/')
 		filename = filepath.split('/')[-1]
 		fout = open(filedir + '/' + filename, 'w')
