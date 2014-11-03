@@ -1,8 +1,7 @@
 from boto.mturk.connection import MTurkConnection
 from boto.mturk.question import QuestionContent, Question, Question, QuestionForm, Overview, AnswerSpecification, FormattedContent, FreeTextAnswer
+from secretkeys import *
 
-ACCESS_ID = 'AKIAJHRT3VNRDNAWRUEA'
-SECRET_KEY = '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'
 HOST = 'mechanicalturk.amazonaws.com'
 
 mtc = MTurkConnection(aws_access_key_id = ACCESS_ID,
