@@ -58,7 +58,7 @@ class createRequest:
 		fout.write(x['audio'])
 		fout.close()
 
-		q = db.insert('requests', requestid = x['requestid'], filename = filedir + '/' + filenameprojectid = x['projectid'])
+		q = db.insert('requests', requestid = x['requestid'], filename = filedir + '/' + filename, projectid = x['projectid'])
 
 		#sitename is a dummy thing
 		sitename = "http://54.69.164.187:8080"
