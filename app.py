@@ -2,7 +2,7 @@ import web
 import mturk
 
 render = web.template.render('templates/')
-db = web.database(dbn='postgres', db='shout', user='postgres', pw='password')
+db = web.database(dbn='postgres', db='crowdchoir', user='postgres', pw='password')
 
 urls = (
     	'/', 'home',
@@ -61,7 +61,7 @@ class createRequest:
 		q = db.insert('requests', requestid = x['requestid'], filename = filedir + '/' + filename, projectid = x['projectid'])
 
 		#sitename is a dummy thing
-		sitename = "http://54.69.164.187:8080"
+		sitename = "http://54.187.211.110:8080"
 		link = sitename + "/contribute/"
 		link += x['requestid']
 		mturk.postHIT(link)
