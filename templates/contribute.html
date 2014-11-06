@@ -1,4 +1,4 @@
-$def with (file, requestid)
+$def with (file, requestid, projectid)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -16,8 +16,10 @@ $def with (file, requestid)
 	<script>
 		var requestid = "$requestid";
 		var filename = "$file";
+		var projectid = "$projectid";
 	</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/static/js/jquery.cookie.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/recorder.js"></script>
 	<script src="/static/js/recorderWorker.js"></script>
@@ -56,7 +58,7 @@ $def with (file, requestid)
 
 		<div class="instr">
 			<p>
-			2. Now, hit record and sing along to the audio file.
+			2. Now, hit record and imitate the audio file.
 			</p>
 	 		
 	 		<div class="btn-group btn-group-lg" id="recordbtn">

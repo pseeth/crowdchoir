@@ -12,32 +12,44 @@ var makeID = function() {
 	return text;
 };
 
+var requestID;
 
 $(document).ready(function() {
-	$('#submitButton').click(function(e) {
-		text = $('#inputBox').val();
-		// throw error if no text entered
-		if (text.length === 0) {
-			alert('Please enter text before submitting.');
-		} else {
-			// send POST request of string to server
-			data = new FormData();
+	if ($.cookie('projectid') == undefined) {
+		$.cookie('projectid', makeID(), {expires : 1, path: '/'})
+	}
+	Dropzone.options.audio = {
+		paramName:  'audio',
+		maxFilesize: 4,
+		sending: function(file, xhr, data) {
 			requestID = makeID();
 			data.append('requestid', requestID);
-			data.append('string', text);
-			$.ajax({
-				url: '/createRequest',
-				type: 'POST',
-				data: data,
-				success: function(data) {
-					console.log(data + 'POSTED!');
-				},
-				processData: false,
-				contentType: false
-			});
-			// $.post('/createRequest', data, function(data) {
-			// 	console.log(data + ' posted!');
-			// });
+			data.append('fname', requestID + '.wav');
+			data.append('projectid', $.cookie('projectid'));
 		}
-	});
+	};
 });
+
+function submit() {
+	window.location.replace("/projects/" + $.cookie('projectid'));
+}
+/*
+function submit() {
+	text = $('#inputBox').val();
+	// throw error if no text entered
+	if (text.length === 0) {
+		alert('Please enter text before submitting.');
+	} else {
+		// send POST request of string to server
+		data = new FormData();
+		$.ajax({
+			url: '/createRequest',
+			type: 'POST',
+			data: data,
+			success: function(data) {
+				console.log(data + 'POSTED!');
+			},
+			processData: false,
+			contentType: false
+		});
+}*/

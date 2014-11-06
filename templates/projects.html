@@ -1,3 +1,4 @@
+$def with (projectid, req, cont)
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,10 +9,9 @@
 
     <!-- Bootstrap -->
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link href="static/css/bootstrap.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
-    <link href="static/css/dropzone.css" rel="stylesheet">
-    <link href="static/css/request.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <link href="/static/css/request.css" rel="stylesheet">
 
   </head>
 
@@ -20,26 +20,25 @@
 
 		<div class="container jumbotron main">
 			<div class="container text">
-				<h2>What audio files would you like people to imitate?</h2>
+				<h1>Project: $projectid</h1>
+				<h2>Requests</h2>
+				<ol>
+				$for r in req:
+					<li><a href=$r.filename>$r.filename</a></li>
+				</ol>
+				<h2>Contributions</h2>
+				<ol>
+				$for c in cont:
+					<li><a href=$c.filename>$c.filename</a></li>
+				</ol>
 			</div>
-			<form id="audio" action="/createRequest" class="dropzone"></form>
 			
 		
-	 		<div class="btn-group btn-group-lg" id="submitbtn">
-	  			<button type="button"
-	  				class="btn btn-primary addstyle"
-					id="submit"
-					onclick="submit();">
-						<span class="glyphicon glyphicon-ok"></span> Done
-				</button>
-			</div>
 		</div>
 	</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="/static/js/jquery.cookie.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
-	<script src="static/js/dropzone.js"></script>
-	<script src="static/js/request.js"></script>
 	<!-- <script src="static/js/recorder.js"></script>
 	<script src="static/js/recorderWorker.js"></script>
 	<script src="static/js/shout.js"></script> -->

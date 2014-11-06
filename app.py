@@ -12,7 +12,8 @@ urls = (
 	'/upload', 'upload',
 	'/createRequest', 'createRequest',
 	'/requests/(.*)', 'requests',
-	'/contributions/(.*)', 'contributions'
+	'/contributions/(.*)', 'contributions',
+	'/projects/(.*)', 'projects'
 )
 
 app = web.application(urls, globals())
@@ -32,7 +33,8 @@ class contribute:
 		#okay here's where someone can actually sing along to something. it renders a page with a record interface, and the loaded audio file will be in the folder requests/[requestid].wav. to sing along to a specific requestid, you'd visit /contribute/[requestid].
 		rid = dict(requestid=requestid)
 		req = db.select('requests', rid, where = "requestid = $requestid")
-		return render.contribute(req[0].filename, requestid)
+		req = req[0]
+		return render.contribute(req.filename, requestid, req.projectid)
 
 class upload:
 	def POST(self):
@@ -61,13 +63,13 @@ class createRequest:
 		fout.write(x['audio'])
 		fout.close()
 
-		q = db.insert('requests', requestid = x['requestid'], filename = filedir + '/' + filename, projectid = x['projectid'])
+		q = db.insert('requests', requestid = x['requestid'], filename = '/' + filedir + '/' + filename, projectid = x['projectid'])
 
 		#sitename is a dummy thing
 		sitename = "http://54.187.211.110:8080"
 		link = sitename + "/contribute/"
 		link += x['requestid']
-		mturk.postHIT(link)
+		#mturk.postHIT(link)
 
 class requests:
 	def GET(self, name):
@@ -96,6 +98,13 @@ class contributions:
 			return open('contributions/%s' % name, "rb").read()
 		else:
 			raise web.notfound()
+
+class projects:
+	def GET(self, projectid):
+		pid = dict(projectid=projectid)
+		req = db.select('requests', pid, where = "projectid = $projectid")
+		cont = db.select('contributions', pid, where = "projectid = $projectid")
+		return render.projects(projectid, req, cont)
 
 if __name__ == "__main__":
     app.run()
