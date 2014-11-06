@@ -16,7 +16,7 @@
 
 #submitbtn {
 	float: right;
-	margin:10px;
+	margin:15px;
 }
 
 .btn-file input[type=file] {
@@ -40,6 +40,16 @@
 }
 .text {
 	margin-top: 30px;
+}
+
+.rtext {
+	margin-top: 40px;
+	text-align: center;
+}
+
+#ques {
+	margin-left: 10%;
+	margin-bottom: 40px;
 }
 
 #inputBox::-webkit-input-placeholder { font-style: italic; opacity: 0.7 !important; }
