@@ -104,7 +104,7 @@ class projects:
 		pid = dict(projectid=projectid)
 		req = db.select('requests', pid, where = "projectid = $projectid")
 		cont = db.select('contributions', pid, where = "projectid = $projectid")
-		return render.projects(projectid, req, cont)
+		return render.projects(projectid, req.list(), cont.list())
 
 if __name__ == "__main__":
     app.run()
