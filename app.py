@@ -47,7 +47,7 @@ class upload:
 		fout = open(filedir + '/' + filename, 'w')
 		fout.write(x['audio'])
 		fout.close()
-		db.insert('contributions', contributeid = x['contributeid'], filename = filedir + '/' + filename, requestid = x['requestid'], projectid = x['projectid'])
+		db.insert('contributions', contributeid = x['contributeid'], filename = '/' + filedir + '/' + filename, requestid = x['requestid'], projectid = x['projectid'])
 
 class createRequest:
 	def POST(self):
@@ -93,7 +93,7 @@ class contributions:
 			"wav": "audio/wav"
 		}
 
-		if name in os.listdir('requests'):
+		if name in os.listdir('contributions'):
 			web.header("Content-Type", cType[ext])
 			return open('contributions/%s' % name, "rb").read()
 		else:
