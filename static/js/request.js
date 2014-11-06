@@ -33,6 +33,11 @@ $(document).ready(function() {
 function submit() {
 	window.location.replace("/projects/" + $.cookie('projectid'));
 }
+
+function newproject() {
+	$.removeCookie('projectid');
+	window.location.replace("/request");
+}
 /*
 function submit() {
 	text = $('#inputBox').val();

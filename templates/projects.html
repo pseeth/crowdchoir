@@ -20,11 +20,11 @@ $def with (projectid, req, cont)
 
 		<div class="container jumbotron main">
 			<div class="container text">
-				<h1>Project: $projectid</h1>
+				<h2 id="projectheader">Project: $projectid</h2>
 				<h2>Requests</h2>
 				<ol>
 				$for r in req:
-					<li><a href=$r.filename>$r.filename</a></li>
+					<li><a href=$r.filename>$r.filename</a> - <a href="/contribute/$r.requestid">Contribute</a></li>
 				</ol>
 				<h2>Contributions</h2>
 				<ol>
