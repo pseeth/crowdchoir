@@ -99,6 +99,8 @@ function startUserMedia(stream) {
 function createDownloadLink() {
 	recorder && recorder.exportWAV(function(blob) {
     	var url = (window.URL || window.webkitURL).createObjectURL(blob);
+		currentAudio = url;
+		currentBlob = blob;
 		if (AUDIOFILES.length > 1) {
 			AUDIOFILES.pop();
 		}
