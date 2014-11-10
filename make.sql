@@ -3,7 +3,8 @@ CREATE DATABASE crowdchoir;
 CREATE TABLE requests (
 	requestid text,
 	filename text,
-	projectid text
+	projectid text,
+	origname text
 );
 CREATE TABLE contributions (
 	contributeid text,

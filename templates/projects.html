@@ -24,7 +24,7 @@ $def with (projectid, req, cont)
 				<h2 id="projectsubtitle">Requests and Contributions</h2>
 				<ol>
 				$for r in req:
-					<li><a href=$r.filename>$r.filename</a> - <a href="/contribute/$r.requestid">Contribute</a></li>
+					<li><a href=$r.filename>$r.origname</a> - <a href="/contribute/$r.requestid">Contribute</a></li>
 					<ol>
 					$for c in cont:
 						$if c.requestid == r.requestid:

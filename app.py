@@ -21,7 +21,10 @@ app = web.application(urls, globals())
 class home:
     def GET(self):
 		#some sort of home page describing the project if we get this far. not really necessary.
-        return render.home()
+		projects = db.select('requests', what="projectid").list()
+		projects = list(set([p['projectid'] for p in projects]))
+
+		return render.home(projects)
 
 class request:
 	def GET(self):
@@ -62,8 +65,8 @@ class createRequest:
 		fout = open(filedir + '/' + filename, 'w')
 		fout.write(x['audio'])
 		fout.close()
-
-		q = db.insert('requests', requestid = x['requestid'], filename = '/' + filedir + '/' + filename, projectid = x['projectid'])
+		print x.keys()
+		q = db.insert('requests', requestid = x['requestid'], filename = '/' + filedir + '/' + filename, projectid = x['projectid'], origname = x['origname'])
 
 		#sitename is a dummy thing
 		sitename = "http://54.187.211.110:8080"

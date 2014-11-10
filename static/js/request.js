@@ -26,6 +26,7 @@ $(document).ready(function() {
 			data.append('requestid', requestID);
 			data.append('fname', requestID + '.wav');
 			data.append('projectid', $.cookie('projectid'));
+			data.append('origname', file.name);
 		}
 	};
 });
